@@ -147,7 +147,7 @@ class BYTETracker(object):
         self.removed_stracks = []  # type: list[STrack]
 
         self.frame_id = 0
-        self.det_thresh = 0.6 + 0.1
+        self.det_thresh = 0.5 + 0.1
         self.buffer_size = int(frame_rate / 30.0 * 25)
         self.max_time_lost = self.buffer_size
         self.kalman_filter = KalmanFilter()
@@ -167,9 +167,9 @@ class BYTETracker(object):
             scores = output_results[:, 4] * output_results[:, 5]
             bboxes = output_results[:, :4]  # x1y1x2y2
 
-        remain_inds = scores > 0.6
+        remain_inds = scores > 0.5
         inds_low = scores > 0.1
-        inds_high = scores < 0.6
+        inds_high = scores < 0.5
 
         inds_second = np.logical_and(inds_low, inds_high)
         dets_second = bboxes[inds_second]
@@ -222,7 +222,7 @@ class BYTETracker(object):
             detections_second = []
         r_tracked_stracks = [strack_pool[i] for i in u_track if strack_pool[i].state == TrackState.Tracked]
         dists = matching.iou_distance(r_tracked_stracks, detections_second)
-        matches, u_track, u_detection_second = matching.linear_assignment(dists, thresh=0.6)
+        matches, u_track, u_detection_second = matching.linear_assignment(dists, thresh=0.5)
         for itracked, idet in matches:
             track = r_tracked_stracks[itracked]
             det = detections_second[idet]
