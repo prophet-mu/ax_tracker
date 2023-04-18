@@ -51,7 +51,7 @@ while pipeline.work():
             
             ui.rectangle((x1,y1,x2,y2), fill=(100,int(colours[int(pred_id)][0]),int(colours[int(pred_id)][1]),int(colours[int(pred_id)][2])), outline=(255,0,0,255))
             ui.text((x,y), str(pred_id))
-    pipeline.config("ui_image", (lcd_width, lcd_height, "ARGB", argb.tobytes()))
+    pipeline.config("display", (lcd_width, lcd_height, "ARGB", argb.tobytes()))
         # if tmp['nObjSize'] > 10: # try exit
         #     pipeline.free()
 pipeline.free()

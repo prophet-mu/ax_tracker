@@ -64,7 +64,7 @@ while pipeline.work():
             print(online_tlwhs, online_ids, online_scores)
             
             
-    pipeline.config("ui_image", (lcd_width, lcd_height, "ARGB", argb.tobytes()))
+    pipeline.config("display", (lcd_width, lcd_height, "ARGB", argb.tobytes()))
         # if tmp['nObjSize'] > 10: # try exit
         #     pipeline.free()
 pipeline.free()
